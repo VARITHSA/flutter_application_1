@@ -4,8 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/data.dart';
 import 'package:flutter_application_1/models/current_track_model.dart';
-import 'package:flutter_application_1/screens/playlist_screen.dart';
 import 'package:flutter_application_1/widgets/widgets.dart';
+// import 'package:flutter_application_1/screens/playlist_screen.dart';
+// import 'package:flutter_application_1/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -77,10 +78,11 @@ class Shell extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                Container(
-                  width: 280.0,
-                  color: Colors.green,
-                ),
+                SideMenu()
+                // Container(
+                //   width: 280.0,
+                //   color: Colors.green,
+                // ),
                 // Playlistscreen
               ],
             ),

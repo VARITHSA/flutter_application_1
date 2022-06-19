@@ -1,7 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/data.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class SideMenu extends StatelessWidget {
+  const SideMenu({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +41,9 @@ class SideMenu extends StatelessWidget {
             title: 'Radio',
             onTap: () {},
           ),
-          const SizedBox(height: 12.0),
+          SizedBox(
+            height: 12.0,
+          ),
           _LibraryPlaylists(),
         ],
       ),
@@ -49,7 +55,6 @@ class _SideMenuIconTab extends StatelessWidget {
   final IconData iconData;
   final String title;
   final VoidCallback onTap;
-
   const _SideMenuIconTab({
     Key? key,
     required this.iconData,
@@ -76,13 +81,14 @@ class _SideMenuIconTab extends StatelessWidget {
 }
 
 class _LibraryPlaylists extends StatefulWidget {
+  const _LibraryPlaylists({Key? key}) : super(key: key);
+
   @override
-  __LibraryPlaylistsState createState() => __LibraryPlaylistsState();
+  State<_LibraryPlaylists> createState() => __LibraryPlaylistsState();
 }
 
 class __LibraryPlaylistsState extends State<_LibraryPlaylists> {
-  ScrollController? _scrollController;
-
+  late ScrollController _scrollController;
   @override
   void initState() {
     super.initState();
@@ -91,15 +97,18 @@ class __LibraryPlaylistsState extends State<_LibraryPlaylists> {
 
   @override
   void dispose() {
-    _scrollController?.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
-  @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Scrollbar(
-        isAlwaysShown: true,
+      child: RawScrollbar(
+        radius: Radius.elliptical(12, 15),
+        thumbColor: Colors.green,
+        trackVisibility: true,
+        thickness: 2.0,
+        thumbVisibility: true,
         controller: _scrollController,
         child: ListView(
           controller: _scrollController,
@@ -107,60 +116,70 @@ class __LibraryPlaylistsState extends State<_LibraryPlaylists> {
           physics: const ClampingScrollPhysics(),
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
                     horizontal: 16.0,
                   ),
-                  child: Text(
-                    'YOUR LIBRARY',
-                    style: Theme.of(context).textTheme.headline4,
-                    overflow: TextOverflow.ellipsis,
+                  child: Row(
+                    children: [
+                      Text(
+                        'Your Library',
+                        style: Theme.of(context).textTheme.headline4,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
                 ...yourLibrary
-                    .map((e) => ListTile(
-                          dense: true,
-                          title: Text(
-                            e,
-                            style: Theme.of(context).textTheme.bodyText2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onTap: () {},
-                        ))
+                    .map(
+                      (e) => ListTile(
+                        dense: true,
+                        title: Text(
+                          e,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        onTap: () {},
+                      ),
+                    )
                     .toList(),
               ],
             ),
-            const SizedBox(height: 24.0),
+            SizedBox(
+              height: 24.0,
+            ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
                     horizontal: 16.0,
                   ),
-                  child: Text(
-                    'PLAYLISTS',
-                    style: Theme.of(context).textTheme.headline4,
-                    overflow: TextOverflow.ellipsis,
+                  child: Row(
+                    children: [
+                      Text(
+                        'PLAYLISTS',
+                        style: Theme.of(context).textTheme.headline4,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
                 ...playlists
-                    .map((e) => ListTile(
-                          dense: true,
-                          title: Text(
-                            e,
-                            style: Theme.of(context).textTheme.bodyText2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onTap: () {},
-                        ))
+                    .map(
+                      (e) => ListTile(
+                        dense: true,
+                        title: Text(
+                          e,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        onTap: () {},
+                      ),
+                    )
                     .toList(),
               ],
-            )
+            ),
           ],
         ),
       ),
