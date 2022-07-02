@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/data.dart';
 import 'package:flutter_application_1/models/current_track_model.dart';
+import 'package:flutter_application_1/widgets/playlist_screen.dart';
 import 'package:flutter_application_1/widgets/widgets.dart';
 // import 'package:flutter_application_1/screens/playlist_screen.dart';
 // import 'package:flutter_application_1/widgets/widgets.dart';
@@ -78,20 +79,19 @@ class Shell extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                SideMenu()
+                if (MediaQuery.of(context).size.width > 800) SideMenu(),
                 // Container(
                 //   width: 280.0,
                 //   color: Colors.green,
                 // ),
-                // Playlistscreen
+                Expanded(
+                    child: PlaylistScreen(
+                  playlist: lofihiphopPlaylist,
+                )),
               ],
             ),
           ),
-          Container(
-            height: 84.0,
-            width: double.infinity,
-            color: Colors.blue,
-          )
+          CurrentTrack(),
         ],
       ),
     );
